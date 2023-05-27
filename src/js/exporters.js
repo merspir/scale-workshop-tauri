@@ -1,3 +1,6 @@
+const { save } = window.__TAURI__.dialog;
+const { writeBinaryFile, writeTextFile }  = window.__TAURI__.fs;
+
 function export_error() {
   // no tuning data to export
   if (R.isNil(tuning_table['freq'][tuning_table['base_midi_note']])) {
@@ -6,15 +9,18 @@ function export_error() {
   }
 }
 
-function save_file(filename, contents, raw, mimeType = 'application/octet-stream,') {
+async function save_file(filename, contents, raw, mimeType = 'application/octet-stream,') {
   const link = document.createElement('a')
   link.download = filename
 
+  const filePath = await save({
+    defaultPath: filename
+  }); // to-do, add DialogFilter?
+
   if (raw === true) {
-    const blob = new Blob([contents], { type: 'application/octet-stream' })
-    link.href = window.URL.createObjectURL(blob)
+    await writeBinaryFile(filePath, contents);
   } else {
-    link.href = 'data:' + mimeType + encodeURIComponent(contents)
+    await writeTextFile(filePath, contents);
   }
 
   link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window })) // opens save dialog
