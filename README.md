@@ -2,15 +2,15 @@
 
 Forked from https://github.com/SeanArchibald/scale-workshop/
 
-✅ Most things work, including saving files
+✅ Most things work, most importantly saving files. 
 
-🔳 TO-DO: Importing files doesn't filter by extension -> use tauri-api instead of the web file api
+🔳 TO-DO: Importing tuning files doesn't filter by extension -> use Tauri API instead of the web File API
 
-🔳 The user guide should open in new window
+🔳 TO-DO: The user guide should open in a new window
 
 ## Build instructions
 
-  1. install tauri-cli
+  1. Tnstall tauri-cli
   
   2. `tauri build`
 
